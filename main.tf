@@ -52,6 +52,11 @@ resource "aws_cognito_identity_provider" "office365_identity_provider" {
   }
 }
 
+provider "github" {
+  token = var.github_token
+  owner = var.github_owner
+}
+
 resource "github_actions_secret" "ghsecret_accesskey" {
   repository       = var.github_repository
   secret_name      = "AWS_ACCESS_KEY_ID"
