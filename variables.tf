@@ -34,3 +34,9 @@ variable "github_owner" {
   type = string
   description = "GitHub username or organization name"
 }
+
+variable "bucket_policy_addition" {
+  description = "Additional S3 policies in Terraform format. Can be derived using jsondecode(iam_policy_document.json)."
+  type = any
+  default = null
+}

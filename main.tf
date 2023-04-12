@@ -34,6 +34,8 @@ module "cognito_s3_website" {
     aws.us-east-1: aws.us-east-1
   }
 
+  bucket_policy_addition = var.bucket_policy_addition
+
 }
 
 resource "aws_cognito_identity_provider" "office365_identity_provider" {

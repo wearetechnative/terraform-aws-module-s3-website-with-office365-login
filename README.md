@@ -4,6 +4,21 @@ terraform-aws-module-s3-website-with-office365-login
 
 <!-- SHIELDS -->
 
+
+## Troubleshooting
+
+There is still a bug in the resource userpool... When this occures add this
+lifecycle block in your .terraform ..... cognito..userpool... main.tf
+
+```
+  lifecycle {
+    ignore_changes = [
+      schema
+    ]
+  }
+```
+
+
 This module implements ...
 
 [![](we-are-technative.png)](https://www.technative.nl)
