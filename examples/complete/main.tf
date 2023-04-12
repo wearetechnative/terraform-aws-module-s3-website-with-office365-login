@@ -1,5 +1,5 @@
 module "office365sso_s3site_example_website_com" {
-  source = "./office365sso_s3site"
+  source = "../../"
   domain = "website.com"
   subdomain = "example"
   github_resitory = "example_repository"

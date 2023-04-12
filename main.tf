@@ -1,6 +1,6 @@
 module "cognito_s3_website" {
 
-  source = "git@github.com:TechNative-B-V/terraform-aws-module-static-website-cognito-auth.git?ref=v0.3.0"
+  source = "github.com/wearetechnative/terraform-aws-module-static-website-cognito-auth?ref=v0.3.0"
 
   name                            = "website-${var.subdomain}-${var.domain}"
   domain                          = "${var.subdomain}.${var.domain}"
@@ -36,9 +36,20 @@ module "cognito_s3_website" {
 
 }
 
-resource "aws_cognito_user_pool_ui_customization" "cognito_login_ui" {
-  user_pool_id = cognito_s3_website.cognito_user_pool_id
-  image_file   = filebase64("./coolguy.png")
+resource "aws_cognito_identity_provider" "office365_identity_provider" {
+  user_pool_id  = cognito_s3_website.cognito_user_pool_id
+  provider_name = "OFFICE365"
+  provider_type = "SAML"
+
+  provider_details = {
+    MetadataURL = "https://login.microsoftonline.com/${var.office365_account_id}/federationmetadata/2007-06/federationmetadata.xml?appid=${var.office365_app_id}"
+    SLORedirectBindingURI = "https://login.microsoftonline.com/${var.office365_account_id}/saml2"
+    SSORedirectBindingURI = "https://login.microsoftonline.com/${var.office365_account_id}/saml2"
+  }
+
+  attribute_mapping = {
+    email    = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress,office365tn=http://schemas.microsoft.com/ws/2008/06/identity/claims/groups"
+  }
 }
 
 resource "github_actions_secret" "ghsecret_accesskey" {
@@ -58,21 +69,3 @@ resource "github_actions_secret" "ghsecret_s3bucket" {
   secret_name      = "AWS_S3_BUCKET"
   plaintext_value  = cognito_s3_website.s3_bucket_id
 }
-
-resource "aws_cognito_identity_provider" "office365_identity_provider" {
-  user_pool_id  = cognito_s3_website.cognito_user_pool_id
-  provider_name = "OFFICE365"
-  provider_type = "SAML"
-
-  provider_details = {
-    MetadataURL = "https://login.microsoftonline.com/${var.office365_account_id}/federationmetadata/2007-06/federationmetadata.xml?appid=${var.office365_app_id}"
-    SLORedirectBindingURI = "https://login.microsoftonline.com/${var.office365_account_id}/saml2"
-    SSORedirectBindingURI = "https://login.microsoftonline.com/${var.office365_account_id}/saml2"
-  }
-
-  attribute_mapping = {
-    email    = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress,office365tn=http://schemas.microsoft.com/ws/2008/06/identity/claims/groups"
-  }
-}
-
-
