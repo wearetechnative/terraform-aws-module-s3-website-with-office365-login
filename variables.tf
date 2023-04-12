@@ -24,3 +24,13 @@ variable "office365_app_id" {
   type = string
   description = "office365_app_id, this is the second hash found in the metadata federation url"
 }
+
+variable "github_token" {
+  type = string
+  description = "GitHub PAT with repo scope"
+}
+
+variable "github_owner" {
+  type = string
+  description = "GitHub username or organization name"
+}
