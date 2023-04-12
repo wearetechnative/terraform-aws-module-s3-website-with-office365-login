@@ -4,6 +4,50 @@ terraform-aws-module-s3-website-with-office365-login
 
 <!-- SHIELDS -->
 
+## Terraform Administration Steps
+
+Create new terraform module, copy mcs-docs.technative.eu and adapt to your new
+domain name.
+
+### MS Office365 Administration Steps
+
+- login to Outlook
+- Open Admin app from the Applications list (top left)
+- Click Show All
+- Click Azure Active Directory
+- Click Applications -> Enterprice applications
+
+- Click New Application
+- Click Create your own application
+- As name enter the website domain. e.g. example.website.com
+- Integrate any other application you don’t find in the gallery (Non-gallery)
+
+- Choose `Set up single sign on`
+- Choose `SAML`
+- Click Basic SAML Configuration
+- Enter urn:amazon:cognito:sp:<yourUserPoolID> as Identifier (Entity ID) (this is a standard output of the TF-module)
+- Enter https://login.DOMAIN/saml2/idpresponse as Reply URL (this is a standard output of the TF-module)
+- Save
+
+- Click Attributes and Claims
+- Add a group claim
+- Check: Groups assigned to the application
+- Save
+
+- copy the `App Federation Metadata Url`
+
+- Click `Manage` -> `Properties`
+- Add Application logo
+
+- Enable/Disable Assignment required? If Yes, add users.
+- Enable/Disable Visible to users?
+
+### Cognito Steps
+
+when activedir-app is created see the `App Federation Metadata Url`. First hash
+is de office365_account_id and second hash is office365_app_id.
+
+Add these as vars for the module.
 
 ## Troubleshooting
 

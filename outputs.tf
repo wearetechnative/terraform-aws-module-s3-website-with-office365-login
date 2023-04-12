@@ -10,3 +10,6 @@ output "cognito_user_pool_id" {
   value = module.cognito_s3_website.cognito_user_pool_id
 }
 
+output "s3_bucket_id" {
+  value = module.cognito_s3_website.s3_bucket_id
+}
