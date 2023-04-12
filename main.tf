@@ -2,7 +2,7 @@ module "cognito_s3_website" {
 
   source = "github.com/wearetechnative/terraform-aws-module-static-website-cognito-auth?ref=v0.3.0"
 
-  name                            = "website-${var.subdomain}-${var.domain}"
+  name                            = "website-${var.subdomain}-${replace(var.domain, ".", "-")}"
   domain                          = "${var.subdomain}.${var.domain}"
   route53_zone_name               = "${var.domain}."
 
@@ -30,11 +30,14 @@ module "cognito_s3_website" {
     }
   ]
 
+  providers = {
+    aws.us-east-1: aws.us-east-1
+  }
 
 }
 
 resource "aws_cognito_identity_provider" "office365_identity_provider" {
-  user_pool_id  = cognito_s3_website.cognito_user_pool_id
+  user_pool_id  = module.cognito_s3_website.cognito_user_pool_id
   provider_name = "OFFICE365"
   provider_type = "SAML"
 
@@ -52,17 +55,17 @@ resource "aws_cognito_identity_provider" "office365_identity_provider" {
 resource "github_actions_secret" "ghsecret_accesskey" {
   repository       = var.github_repository
   secret_name      = "AWS_ACCESS_KEY_ID"
-  plaintext_value  = cognito_s3_website.iam_access_key_id
+  plaintext_value  = module.cognito_s3_website.iam_access_key_id
 }
 
 resource "github_actions_secret" "ghsecret_accesskeysecret" {
   repository       = var.github_repository
   secret_name      = "AWS_SECRET_ACCESS_KEY"
-  plaintext_value  = cognito_s3_website.iam_access_key_secret
+  plaintext_value  = module.cognito_s3_website.iam_access_key_secret
 }
 
 resource "github_actions_secret" "ghsecret_s3bucket" {
   repository       = var.github_repository
   secret_name      = "AWS_S3_BUCKET"
-  plaintext_value  = cognito_s3_website.s3_bucket_id
+  plaintext_value  = module.cognito_s3_website.s3_bucket_id
 }

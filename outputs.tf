@@ -1,5 +1,5 @@
 output "office365_saml_entity_id" {
-  value = "urn:amazon:cognito:sp:${cognito_s3_website.cognito_user_pool_id}"
+  value = "urn:amazon:cognito:sp:${module.cognito_s3_website.cognito_user_pool_id}"
 }
 
 output "office365_reply_url" {
@@ -7,6 +7,6 @@ output "office365_reply_url" {
 }
 
 output "cognito_user_pool_id" {
-  value = cognito_s3_website.cognito_user_pool_id
+  value = module.cognito_s3_website.cognito_user_pool_id
 }
 
