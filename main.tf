@@ -30,9 +30,6 @@ module "cognito_s3_website" {
     }
   ]
 
-  providers = {
-    aws.us-east-1: aws.us-east-1
-  }
 
 }
 
