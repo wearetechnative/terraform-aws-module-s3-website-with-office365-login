@@ -1,6 +1,6 @@
 module "cognito_s3_website" {
 
-  source = "github.com/wearetechnative/terraform-aws-module-static-website-cognito-auth?ref=7aabada625827a3bbcceca2cb1c655f91dd1aa31"
+  source = "github.com/wearetechnative/terraform-aws-module-static-website-cognito-auth?ref=f6c8cdde715ce6c68cb79aaab4b6aba1a99bf7dd"
   #source = "/home/pim/tcTechNative/terraform-aws-module-static-website-cognito-auth"
 
   name                            = "website-${var.subdomain}-${replace(var.domain, ".", "-")}"
