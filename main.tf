@@ -1,6 +1,6 @@
 module "cognito_s3_website" {
 
-  source = "github.com/wearetechnative/terraform-aws-module-static-website-cognito-auth?ref=f6c8cdde715ce6c68cb79aaab4b6aba1a99bf7dd"
+  source = "github.com/wearetechnative/terraform-aws-module-static-website-cognito-auth?ref=b3068e7001454391949af469fb79c74cbd128725"
   #source = "/home/pim/tcTechNative/terraform-aws-module-static-website-cognito-auth"
 
   name                            = "website-${var.subdomain}-${replace(var.domain, ".", "-")}"
@@ -14,6 +14,7 @@ module "cognito_s3_website" {
   cognito_path_parse_auth         = "/parseauth"
   cognito_refresh_token_validity  = 3650
   cognito_domain_prefix           = "login"
+  region                          = var.region
 
   cognito_client_supported_identity_providers = ["COGNITO", "OFFICE365"]
 
