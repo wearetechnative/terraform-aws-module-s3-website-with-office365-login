@@ -1,6 +1,6 @@
 
 terraform-aws-module-s3-website-with-office365-login
-# Terraform AWS S3 Website with Office365 Login ![](https://img.shields.io/github/actions/workflow/status/wearetechnative/terraform-aws-module-s3-website-with-office365-login/tflint.yaml?branch=main&style=plastic)
+# Terraform AWS S3 Website with Office365 Login ![](https://img.shields.io/github/actions/workflow/status/wearetechnative/terraform-aws-module-s3-website-with-office365-login/lint.yaml?branch=main&style=plastic&label=lint) ![](https://img.shields.io/github/actions/workflow/status/wearetechnative/terraform-aws-module-s3-website-with-office365-login/security-scan.yaml?branch=main&style=plastic&label=security)
 
 <!-- SHIELDS -->
 
